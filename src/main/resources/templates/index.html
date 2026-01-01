@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerenciador de Tarefas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+
+  <style>
+    /* Nossa customização especial */
+    body { background-color: #f0f2f5; }
+    .tarefa-card { max-width: 700px; margin: 50px auto; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+    .riscado { text-decoration: line-through; color: #888; }
+    .acao-btn { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card tarefa-card">
+    <div class="card-header bg-primary text-white text-center py-3">
+      <h2 class="mb-0"><i class="bi bi-check2-square"></i> Minhas Tarefas</h2>
+    </div>
+
+    <div class="card-body">
+      <form action="/adicionar" method="post" class="d-flex gap-2 mb-4">
+        <input type="text" name="descricao" class="form-control form-control-lg" placeholder="Adicionar nova tarefa..." required>
+        <button type="submit" class="btn btn-primary btn-lg"><i class="bi bi-plus-lg"></i></button>
+      </form>
+
+      <ul class="list-group list-group-flush">
+        <li th:each="tarefa : ${tarefas}" class="list-group-item d-flex justify-content-between align-items-center">
+
+                    <span th:text="${tarefa.descricao}"
+                          th:classappend="${tarefa.concluida} ? 'riscado' : ''"
+                          class="fs-5">
+                        Descrição
+                    </span>
+
+          <div class="d-flex gap-2">
+            <a th:href="@{/concluir/{id}(id=${tarefa.id})}"
+               class="btn btn-outline-success acao-btn rounded-circle"
+               title="Concluir">
+              <i class="bi bi-check-lg"></i>
+            </a>
+
+            <a th:href="@{/deletar/{id}(id=${tarefa.id})}"
+               class="btn btn-outline-danger acao-btn rounded-circle"
+               title="Excluir">
+              <i class="bi bi-trash"></i>
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card-footer text-muted text-center" th:if="${tarefas.empty}">
+      Nenhuma tarefa pendente. Aproveite o dia! ☀️
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
