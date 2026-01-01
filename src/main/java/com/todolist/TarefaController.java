@@ -19,7 +19,7 @@ public class TarefaController {
     @GetMapping("/")
     public String listar(Model model) {
         model.addAttribute("tarefas", repository.findAll());
-        return "index"; // Vai procurar o arquivo index.html (que vamos criar jaja)
+        return "index";
     }
 
     @PostMapping("/adicionar")
@@ -38,7 +38,7 @@ public class TarefaController {
     public String concluir(@PathVariable Long id) {
         Tarefa tarefa = repository.findById(id).orElse(null);
         if (tarefa != null) {
-            tarefa.setConcluida(!tarefa.isConcluida()); // Inverte: se tava true vira false, e vice-versa
+            tarefa.setConcluida(!tarefa.isConcluida());
             repository.save(tarefa);
         }
         return "redirect:/";

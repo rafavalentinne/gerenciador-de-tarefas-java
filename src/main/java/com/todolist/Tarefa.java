@@ -13,7 +13,7 @@ public class Tarefa {
     private Long id;
 
     private String descricao;
-    private boolean concluida = false; // Novo campo!
+    private boolean concluida = false;
 
     public Tarefa() {}
 
@@ -23,8 +23,6 @@ public class Tarefa {
     }
 
 
-
-    // Getters e Setters atualizados
     public Long getId() { return id; }
     public String getDescricao() { return descricao; }
     public void setDescricao(String descricao) { this.descricao = descricao; }
